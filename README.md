@@ -7,7 +7,7 @@ iochti Kubernetes deployment on AWS using Terraform and kops
 To create the cluster kops, needs to have these things:
   1. A S3 bucket which will store kops state configs
   2. An IAM user called `kops` who has rights to manage S3, Route53, EC2s, IAMs, VPCs
-  3. A domain name hosted (or not) on Route53
+  3. A domain name hosted (or not) on Route53 (see [this tutorial](https://github.com/kubernetes/kops/blob/master/docs/aws.md#configure-dns) for DNS configuration)
 
 If you dont have any of these, use the terraform commands to creates 1 and 2 :
 ```shell
@@ -23,7 +23,6 @@ gpg --export "YOUR_GPG_USER" | base64 >> keys/gpg_base64
 Finally, after the terraform script finished, add kops credentials to your aws config :
 ```shell
 # Get the access/secret keys, copy them somewhere
-# this command uses [keybase](https://keybase.io
 terraform output user_accesskey_id
 terraform output user_accesskey_secret_encoded | base64 --decode | keybase pgp decrypt
 
