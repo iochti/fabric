@@ -26,7 +26,7 @@ Finally, after the terraform script finished, add kops credentials to your aws c
 terraform output user_accesskey_id
 terraform output user_accesskey_secret_encoded | base64 --decode | keybase pgp decrypt
 
-aws-configure --profile kops
+aws configure --profile kops
 
 # Export access/secret keys
 export AWS_ACCESS_KEY_ID=<access key>
