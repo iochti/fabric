@@ -11,7 +11,6 @@ export KOPS_STATE_STORE="s3://k844-net-state-store"
 export NAME="iochticluster.k844.net"
 # creates the k8 cluster files
 kops create cluster ${NAME} \
-    # --node-count 2 \
     --node-size $NODE_SIZE \
     --master-size $MASTER_SIZE \
     --master-zones $ZONES \
