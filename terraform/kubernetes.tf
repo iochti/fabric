@@ -71,8 +71,8 @@ resource "aws_autoscaling_group" "master-eu-west-1a-masters-iochtik8s-k844-net" 
 resource "aws_autoscaling_group" "nodes-iochtik8s-k844-net" {
   name                 = "nodes.iochtik8s.k844.net"
   launch_configuration = "${aws_launch_configuration.nodes-iochtik8s-k844-net.id}"
-  max_size             = 2
-  min_size             = 2
+  max_size             = 4
+  min_size             = 4
   vpc_zone_identifier  = ["${aws_subnet.eu-west-1a-iochtik8s-k844-net.id}"]
 
   tag = {
@@ -163,16 +163,16 @@ resource "aws_internet_gateway" "iochtik8s-k844-net" {
   }
 }
 
-resource "aws_key_pair" "kubernetes-iochtik8s-k844-net-e3aa98fa8368d091dd02bb5c4bf93c89" {
-  key_name   = "kubernetes.iochtik8s.k844.net-e3:aa:98:fa:83:68:d0:91:dd:02:bb:5c:4b:f9:3c:89"
-  public_key = "${file("${path.module}/data/aws_key_pair_kubernetes.iochtik8s.k844.net-e3aa98fa8368d091dd02bb5c4bf93c89_public_key")}"
+resource "aws_key_pair" "kubernetes-iochtik8s-k844-net-335e3d34aa32107361edccc07343ac91" {
+  key_name   = "kubernetes.iochtik8s.k844.net-33:5e:3d:34:aa:32:10:73:61:ed:cc:c0:73:43:ac:91"
+  public_key = "${file("${path.module}/data/aws_key_pair_kubernetes.iochtik8s.k844.net-335e3d34aa32107361edccc07343ac91_public_key")}"
 }
 
 resource "aws_launch_configuration" "master-eu-west-1a-masters-iochtik8s-k844-net" {
   name_prefix                 = "master-eu-west-1a.masters.iochtik8s.k844.net-"
   image_id                    = "ami-72aaa814"
   instance_type               = "t2.micro"
-  key_name                    = "${aws_key_pair.kubernetes-iochtik8s-k844-net-e3aa98fa8368d091dd02bb5c4bf93c89.id}"
+  key_name                    = "${aws_key_pair.kubernetes-iochtik8s-k844-net-335e3d34aa32107361edccc07343ac91.id}"
   iam_instance_profile        = "${aws_iam_instance_profile.masters-iochtik8s-k844-net.id}"
   security_groups             = ["${aws_security_group.masters-iochtik8s-k844-net.id}"]
   associate_public_ip_address = true
@@ -193,7 +193,7 @@ resource "aws_launch_configuration" "nodes-iochtik8s-k844-net" {
   name_prefix                 = "nodes.iochtik8s.k844.net-"
   image_id                    = "ami-72aaa814"
   instance_type               = "t2.micro"
-  key_name                    = "${aws_key_pair.kubernetes-iochtik8s-k844-net-e3aa98fa8368d091dd02bb5c4bf93c89.id}"
+  key_name                    = "${aws_key_pair.kubernetes-iochtik8s-k844-net-335e3d34aa32107361edccc07343ac91.id}"
   iam_instance_profile        = "${aws_iam_instance_profile.nodes-iochtik8s-k844-net.id}"
   security_groups             = ["${aws_security_group.nodes-iochtik8s-k844-net.id}"]
   associate_public_ip_address = true
