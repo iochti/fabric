@@ -1,0 +1,45 @@
+version: '2'
+
+services:
+  gateway:
+    image: iochti/gateway:latest
+    container_name: gateway
+    env_file:
+      - ./env/gateway.env
+    ports: ["3000:3000"]
+    command: gateway-service -auth-addr=linkerd:4142 -user-addr=linkerd:4142
+
+  auth:
+    image: iochti/auth:latest
+    env_file:
+      - ./env/auth.env
+    container_name: auth
+    ports: ["5000:5000"]
+
+  user:
+    image: iochti/user:latest
+    env_file:
+      - ./env/user.env
+    container_name: user
+    ports: ["5001:5001"]
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    env_file:
+     - ./env/postgres.env
+    volumes: ["./db/postgres:/docker-entrypoint-initdb.d"]
+
+  linkerd:
+    image: buoyantio/linkerd:latest
+    container_name: linkerd
+    ports: ["4141:4141", "4142:4142", "9990:9990"]
+    volumes: ["./config:/io.buoyant/linkerd/config:ro"]
+    command: /io.buoyant/linkerd/config/linkerd.yml
+
+  namerd:
+    image: buoyantio/namerd:latest
+    container_name: namerd
+    ports: ["4100:4100", "4180:4180", "9991:9991"]
+    volumes: ["./config:/io.buoyant/linkerd/config:ro"]
+    command: /io.buoyant/linkerd/config/namerd.yml
