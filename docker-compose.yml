@@ -7,7 +7,7 @@ services:
     env_file:
       - ./env/gateway.env
     ports: ["3000:3000"]
-    command: gateway-service -auth-addr=linkerd:4142 -user-addr=linkerd:4142
+    command: gateway-service -auth-addr=linkerd:4142 -user-addr=linkerd:4142 -thing-addr=linkerd:4142
 
   auth:
     image: iochti/auth:latest
@@ -22,6 +22,13 @@ services:
       - ./env/user.env
     container_name: user
     ports: ["5001:5001"]
+
+  thing:
+    image: iochti/thing:latest
+    env_file:
+      - ./env/user.env
+    container_name: thing
+    ports: ["5002:5002"]
 
   postgres:
     image: postgres
