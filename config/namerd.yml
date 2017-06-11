@@ -6,12 +6,13 @@ storage:
   kind: io.l5d.inMemory
   namespaces:
     default: |
-      /host/gateway         => /$/inet/gateway/3000;
-      /host/proto.AuthSvc   => /$/inet/auth/5000;
-      /host/proto.UserSvc   => /$/inet/user/5001;
-      /host/proto.ThingSvc  => /$/inet/thing/5002;
-      /grpc                 => /host;
-      /svc                  => /host/gateway;
+      /host/gateway             => /$/inet/gateway/3000;
+      /host/proto.AuthSvc       => /$/inet/auth/5000;
+      /host/proto.UserSvc       => /$/inet/user/5001;
+      /host/proto.ThingSvc      => /$/inet/thing/5002;
+      /host/proto.ThingGroupSvc => /$/inet/thing-group/5003;
+      /grpc                     => /host;
+      /svc                      => /host/gateway;
 interfaces:
 - kind: io.l5d.thriftNameInterpreter
   ip: 0.0.0.0
