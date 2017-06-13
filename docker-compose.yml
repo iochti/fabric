@@ -54,7 +54,7 @@ services:
   thing-group-mgo:
     image: "mongo:3.4"
     volumes:
-      - ./data/thing-group-mgo:/data/db
+      - ./db/data/thing-group-mgo:/data/db
 
   linkerd:
     image: buoyantio/linkerd:latest
