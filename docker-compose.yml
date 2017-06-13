@@ -30,24 +30,31 @@ services:
   thing:
     image: iochti/thing:latest
     env_file:
-      - ./env/user.env
+      - ./env/thing.env
     container_name: thing
     ports: ["5002:5002"]
 
   thing-group:
     image: iochti/thing-group:latest
     env_file:
-      - ./env/user.env
+      - ./env/thing-group.env
     container_name: thing-group
     ports: ["5003:5003"]
 
+  thing-mgo:
+    image: "mongo:3.4"
+    volumes:
+      - ./db/data/thing-mgo:/data/db
 
-  postgres:
-    image: postgres
-    container_name: postgres
-    env_file:
-     - ./env/postgres.env
-    volumes: ["./db/postgres:/docker-entrypoint-initdb.d"]
+  user-mgo:
+    image: "mongo:3.4"
+    volumes:
+      - ./db/data/user-mgo:/data/db
+
+  thing-group-mgo:
+    image: "mongo:3.4"
+    volumes:
+      - ./data/thing-group-mgo:/data/db
 
   linkerd:
     image: buoyantio/linkerd:latest

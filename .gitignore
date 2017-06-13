@@ -6,3 +6,4 @@
 .terraform/
 *.env
 .DS_Store
+db/
