@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: service
+metadata:
+  namespace: default
+  name: namerd-ctl
+spec:
+  selector:
+    app: namerd
+  type: LoadBalancer
+  ports:
+    - name: ctl
+      port: 80
+      targetPort: 4180
+
+    - name: admin
+      port: 9990

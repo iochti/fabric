@@ -1,0 +1,6 @@
+/srv                      => /#/io.l5d.k8s/default/grpc;
+/srv/proto.AuthSvc        => /srv/auth;
+/srv/proto.UserSvc        => /srv/user;
+/srv/proto.ThingSvc       => /srv/thing;
+/srv/proto.ThingGroupSvc  => /srv/thing-group;
+/grpc                     => /srv;

@@ -1,0 +1,55 @@
+---
+kind: ReplicationController
+apiVersion: v1
+metadata:
+  namespace: default
+  name: web
+
+spec:
+  replicas: 1
+  selector:
+    app: gateway
+  template:
+    metadata:
+      labels:
+        app: gateway
+    spec:
+      dnsPolicy: ClusterFirst
+      volumes:
+        - name: linkerd-config
+          configMap:
+            name: linkerd-config
+
+      containers:
+        - name: gateway
+          image: iochti/gateway:latest
+          imagePullPolicy: Always
+          command:
+            - gateway-service
+            - -srv=:8080
+            - -auth-addr=linkerd:4180
+            - -user-addr=linkerd:4180
+            - -thing-addr=linkerd:4180
+            - -tg-addr=linkerd:4180
+            - -pt-addr=linkerd:4180
+          ports:
+            - name: http
+              containerPort: 8080
+
+        - name: l5d
+          image: buoyantio/linkerd:latest
+          args:
+            - /io/buoyant/linerd/confg/config.yml
+
+          ports:
+            - name: http-in
+              containerPort: 4080
+            - name: http-out
+              containerPort: 4180
+            - name: admin
+              containerPort: 9990
+
+          volumeMounts:
+            - name: "linkerd-config"
+              mountPath: "/io.buoyant/linkerd/config"
+              readOnly: true

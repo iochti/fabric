@@ -12,6 +12,7 @@ services:
       -user-addr=linkerd:4142
       -thing-addr=linkerd:4142
       -tg-addr=linkerd:4142
+      -pt-addr=linkerd:4142
 
   auth:
     image: iochti/auth:latest
@@ -41,6 +42,15 @@ services:
     container_name: thing-group
     ports: ["5003:5003"]
 
+  point:
+    image: iochti/point:latest
+    depends_on:
+      - "point-influx"
+    env_file:
+      - ./env/point.env
+    container_name: point
+    ports: ["5004:5004"]
+
   thing-mgo:
     image: "mongo:3.4"
     volumes:
@@ -55,6 +65,16 @@ services:
     image: "mongo:3.4"
     volumes:
       - ./db/data/thing-group-mgo:/data/db
+
+  point-influx:
+    image: "influxdb:latest"
+    env_file:
+      - ./env/influx-point.env
+    ports:
+      - "8083"
+      - "8086"
+    volumes:
+      - ./db/data/influx/point-influx:/var/lib/influxdb
 
   linkerd:
     image: buoyantio/linkerd:latest

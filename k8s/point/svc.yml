@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: default
+  name: point
+spec:
+  selector:
+    app: point
+
+  clusterIP: None
+  ports:
+    - name: grpc
+      port: 8080

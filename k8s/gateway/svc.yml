@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: service
+metadata:
+  namespace: default
+  name: gateway
+spec:
+  selector:
+    app: gateway
+
+  type: LoadBalancer
+  ports:
+    - name: http
+      port: 80
+      targetPort: 4080
+
+    - name: admin
+      port: 9990
