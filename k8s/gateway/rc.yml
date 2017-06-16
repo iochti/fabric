@@ -3,7 +3,7 @@ kind: ReplicationController
 apiVersion: v1
 metadata:
   namespace: default
-  name: web
+  name: gateway
 
 spec:
   replicas: 1
@@ -39,7 +39,7 @@ spec:
         - name: l5d
           image: buoyantio/linkerd:latest
           args:
-            - /io/buoyant/linerd/confg/config.yml
+            - /io.buoyant/linkerd/config/config.yml
 
           ports:
             - name: http-in

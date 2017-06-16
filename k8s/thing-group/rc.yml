@@ -27,6 +27,9 @@ spec:
           command:
             - thing-group-service
             - --srv=:8080
+            - --mhost=thing-group-mgo
+            - --mport=27017
+            - --mname=thing-group
           ports:
             - name: http
               containerPort: 8080

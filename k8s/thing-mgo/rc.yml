@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  labels:
+    name: thing-mgo
+  name: thing-mgo-controller
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: thing-mgo
+    spec:
+      containers:
+      - image: mongo
+        name: thing-mgo
+        ports:
+        - name: mongo
+          containerPort: 27017
+          hostPort: 27017
+        volumeMounts:
+            - name: mongo-persistent-storage
+              mountPath: /mgo-user/data/db
+      volumes:
+        - name: mongo-persistent-storage
+          awsElasticBlockStore:
+            volumeID: vol-08a31207892984af9
+            fsType: ext4

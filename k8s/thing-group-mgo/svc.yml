@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: thing-group-mgo
+  name: thing-group-mgo
+spec:
+  ports:
+    - port: 27017
+      targetPort: 27017
+  selector:
+    name: thing-group-mgo

@@ -18,7 +18,7 @@ spec:
       dnsPolicy: ClusterFirst
       volumes:
         - name: linkerd-config
-         configMap:
+          configMap:
            name: linkerd-config
 
       containers:
